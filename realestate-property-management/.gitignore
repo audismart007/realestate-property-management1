@@ -1,0 +1,13 @@
+# Salesforce cache
+.sfdx/
+.localdevserver/
+
+# LWC VSCode autocomplete
+**/lwc/**/*.d.ts
+
+# Logs
+*.log
+
+# OS Files
+.DS_Store
+Thumbs.db
