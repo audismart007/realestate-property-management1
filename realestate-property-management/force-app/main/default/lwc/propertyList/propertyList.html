@@ -1,0 +1,61 @@
+<template>
+    <lightning-card title="Property Management" icon-name="custom:custom85">
+        
+        <!-- Filters -->
+        <div class="slds-p-around_medium">
+            <div class="slds-grid slds-gutters">
+                <div class="slds-col slds-size_1-of-4">
+                    <lightning-input type="number" label="Min Price" value={minPrice} onchange={handleMinPriceChange}></lightning-input>
+                </div>
+                <div class="slds-col slds-size_1-of-4">
+                    <lightning-input type="number" label="Max Price" value={maxPrice} onchange={handleMaxPriceChange}></lightning-input>
+                </div>
+                <div class="slds-col slds-size_1-of-4">
+                    <lightning-combobox label="Status" value={statusFilter} options={statusOptions} onchange={handleStatusChange}></lightning-combobox>
+                </div>
+                <div class="slds-col slds-size_1-of-4">
+                    <lightning-combobox label="Furnishing" value={furnishingFilter} options={furnishingOptions} onchange={handleFurnishingChange}></lightning-combobox>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Property List Table -->
+        <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+            <thead>
+                <tr class="slds-line-height_reset">
+                    <th scope="col"><div class="slds-truncate">Name</div></th>
+                    <th scope="col"><div class="slds-truncate">Address</div></th>
+                    <th scope="col"><div class="slds-truncate">City</div></th>
+                    <th scope="col"><div class="slds-truncate">State</div></th>
+                    <th scope="col"><div class="slds-truncate">Rent</div></th>
+                    <th scope="col"><div class="slds-truncate">Status</div></th>
+                    <th scope="col"><div class="slds-truncate">Furnishing</div></th>
+                </tr>
+            </thead>
+            <tbody>
+                <template for:each={properties} for:item="prop">
+                    <tr key={prop.Id} class="slds-hint-parent">
+                        <!-- ONLY THIS LINE CHANGED - added <a> tag with recordUrl -->
+                        <td><div class="slds-truncate"><a href={prop.recordUrl}>{prop.Name}</a></div></td>
+                        <td><div class="slds-truncate">{prop.Address__c}</div></td>
+                        <td><div class="slds-truncate">{prop.City__c}</div></td>
+                        <td><div class="slds-truncate">{prop.State__c}</div></td>
+                        <td><div class="slds-truncate">${prop.Monthly_Rent__c}</div></td>
+                        <td><div class="slds-truncate">{prop.Status__c}</div></td>
+                        <td><div class="slds-truncate">{prop.Furnishing_Status__c}</div></td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+        
+        <!-- Pagination -->
+        <div class="slds-p-around_medium slds-text-align_center">
+            <lightning-button label="Previous" onclick={handlePrevious} disabled={isPreviousDisabled}></lightning-button>
+            <span class="slds-p-horizontal_medium">
+                Page {pageNumber} of {totalPages} ({totalRecords} total records)
+            </span>
+            <lightning-button label="Next" onclick={handleNext} disabled={isNextDisabled}></lightning-button>
+        </div>
+        
+    </lightning-card>
+</template>
