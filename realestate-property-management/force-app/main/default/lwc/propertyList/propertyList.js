@@ -43,7 +43,6 @@ export default class PropertyList extends NavigationMixin(LightningElement) {
             furnishingFilter: this.furnishingFilter
         })
         .then(result => {
-            // Map each property to include a recordUrl for navigation
             this.properties = result.properties.map(p => ({
                 ...p,
                 recordUrl: '/lightning/r/Property__c/' + p.Id + '/view'
@@ -104,5 +103,14 @@ export default class PropertyList extends NavigationMixin(LightningElement) {
     
     showToast(title, message, variant) {
         this.dispatchEvent(new ShowToastEvent({ title, message, variant }));
+    }
+
+    handleNewProperty() {
+        this[NavigationMixin.Navigate]({
+            type: 'standard__webPage',
+            attributes: {
+                url: '/lightning/n/Create_Property'
+            }
+        });
     }
 }

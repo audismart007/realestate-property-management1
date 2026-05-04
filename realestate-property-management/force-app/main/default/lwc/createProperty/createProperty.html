@@ -1,0 +1,113 @@
+<template>
+    <lightning-card title="New Property" icon-name="custom:custom85">
+
+        <div class="slds-p-around_medium">
+
+            <!-- Row 1: Name, Type -->
+            <div class="slds-grid slds-gutters slds-m-bottom_small">
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-input label="Property Name" value={name} onchange={handleNameChange} required></lightning-input>
+                </div>
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-combobox label="Type" value={type} options={typeOptions} onchange={handleTypeChange} required></lightning-combobox>
+                </div>
+            </div>
+
+            <!-- Row 2: Address, City -->
+            <div class="slds-grid slds-gutters slds-m-bottom_small">
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-input label="Address" value={address} onchange={handleAddressChange} required></lightning-input>
+                </div>
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-input label="City" value={city} onchange={handleCityChange} required></lightning-input>
+                </div>
+            </div>
+
+            <!-- Row 3: State, Postal Code -->
+            <div class="slds-grid slds-gutters slds-m-bottom_small">
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-input label="State" value={state} onchange={handleStateChange} required></lightning-input>
+                </div>
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-input label="Postal Code" value={postalCode} onchange={handlePostalCodeChange} required></lightning-input>
+                </div>
+            </div>
+
+            <!-- Row 4: Country, Monthly Rent -->
+            <div class="slds-grid slds-gutters slds-m-bottom_small">
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-input label="Country" value={country} onchange={handleCountryChange} required></lightning-input>
+                </div>
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-input type="number" label="Monthly Rent" value={monthlyRent} onchange={handleRentChange} required></lightning-input>
+                </div>
+            </div>
+
+            <!-- Row 5: Status, Furnishing Status -->
+            <div class="slds-grid slds-gutters slds-m-bottom_small">
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-combobox label="Status" value={status} options={statusOptions} onchange={handleStatusChange} required></lightning-combobox>
+                </div>
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-combobox label="Furnishing Status" value={furnishingStatus} options={furnishingOptions} onchange={handleFurnishingChange} required></lightning-combobox>
+                </div>
+            </div>
+
+            <!-- Row 6: Description -->
+            <div class="slds-m-bottom_small">
+                <lightning-textarea label="Description" value={description} onchange={handleDescriptionChange} required></lightning-textarea>
+            </div>
+
+            <!-- Row 7: Image Upload (Required) -->
+            <div class="slds-m-bottom_small">
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label">
+                        <abbr class="slds-required" title="required">*</abbr> Property Images (Required)
+                    </label>
+                    <div class="slds-form-element__control slds-m-top_x-small">
+                        <input 
+                            type="file" 
+                            accept="image/*" 
+                            multiple 
+                            onchange={handleImageUpload}
+                            style="display:block; padding:8px; border:1px solid #dddbda; border-radius:4px; width:100%;" />
+                    </div>
+                </div>
+
+                <template if:true={hasImages}>
+                    <div class="slds-m-top_x-small">
+                        <template for:each={uploadedImageNames} for:item="imgName">
+                            <p key={imgName} class="slds-text-color_success">✓ {imgName}</p>
+                        </template>
+                    </div>
+                </template>
+                <template if:false={hasImages}>
+                    <p class="slds-text-color_error slds-m-top_x-small">Please upload at least one image.</p>
+                </template>
+            </div>
+
+            <!-- Error Message -->
+            <template if:true={errorMessage}>
+                <div class="slds-notify slds-notify_alert slds-alert_error slds-m-bottom_small" role="alert">
+                    <span>{errorMessage}</span>
+                </div>
+            </template>
+
+            <!-- Buttons -->
+            <div class="slds-m-top_medium">
+                <lightning-button
+                    variant="brand"
+                    label="Save Property"
+                    onclick={handleSave}
+                    disabled={isSaveDisabled}
+                    class="slds-m-right_small">
+                </lightning-button>
+                <lightning-button
+                    label="Cancel"
+                    onclick={handleCancel}>
+                </lightning-button>
+            </div>
+
+        </div>
+    </lightning-card>
+</template>

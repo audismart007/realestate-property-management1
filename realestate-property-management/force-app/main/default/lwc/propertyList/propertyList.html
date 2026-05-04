@@ -1,5 +1,10 @@
 <template>
     <lightning-card title="Property Management" icon-name="custom:custom85">
+
+        <!-- New Property Button -->
+        <div slot="actions">
+            <lightning-button variant="brand" label="New Property" onclick={handleNewProperty}></lightning-button>
+        </div>
         
         <!-- Filters -->
         <div class="slds-p-around_medium">
@@ -35,7 +40,6 @@
             <tbody>
                 <template for:each={properties} for:item="prop">
                     <tr key={prop.Id} class="slds-hint-parent">
-                        <!-- ONLY THIS LINE CHANGED - added <a> tag with recordUrl -->
                         <td><div class="slds-truncate"><a href={prop.recordUrl}>{prop.Name}</a></div></td>
                         <td><div class="slds-truncate">{prop.Address__c}</div></td>
                         <td><div class="slds-truncate">{prop.City__c}</div></td>
